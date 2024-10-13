@@ -58,7 +58,7 @@ npm start
 ## Screenshots
 
 ### Home Page
-![Home Page](https://postimg.cc/62Y8mT8s)
+![Home Page](https://i.postimg.cc/62Y8mT8s/Screenshot-2024-10-13-144145.png)
 
 ### Search Results
 ![Search Results](link-to-searchresults-screenshot)
