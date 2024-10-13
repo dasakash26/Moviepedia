@@ -1,3 +1,5 @@
+Here's an improved version of the **Moviepedia** README with some clarifications and fixes:
+
 # Moviepedia 🎥
 
 Welcome to **Moviepedia**! A movie discovery app built with React and Tailwind CSS, powered by the OMDb API. With Moviepedia, you can search for your favorite movies or explore random selections to find something new and exciting.
@@ -23,8 +25,8 @@ To run this project locally, follow these steps:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/dasakash26/movie-pedia.git
-cd movie-pedia
+git clone https://github.com/dasakash26/Moviepedia
+cd Moviepedia
 ```
 
 ### 2. Install dependencies
@@ -40,13 +42,14 @@ npm install
 Create a `.env` file in the root directory and add your OMDb API key:
 
 ```bash
-REACT_APP_OMDB_API_KEY=your_api_key_here
+REACT_APP_API_URL=http://www.omdbapi.com/
+REACT_APP_API_KEY=your_api_key_here
 ```
 
 ### 4. Run the app
 
 ```bash
-npm run start
+npm start
 ```
 
 ## Usage
@@ -57,21 +60,22 @@ npm run start
 ## Screenshots
 
 ### Home Page
-![Home Page](link-to-screenshot)
+![Home Page](link-to-homepage-screenshot)
 
 ### Search Results
-![Search Results](link-to-screenshot)
+![Search Results](link-to-searchresults-screenshot)
 
 ## API Reference
 
 Moviepedia uses the [OMDb API](http://www.omdbapi.com/) for all movie data. You’ll need to sign up for an API key to make requests.
 
 - **By Search**: `/s={title}&apikey=YOUR_API_KEY`
+- **By Title**: `/t={title}&apikey=YOUR_API_KEY`
 - **By ID**: `/i={imdb_id}&apikey=YOUR_API_KEY`
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
+Contributions are welcome! If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly encouraged.
 
 1. Fork the repository.
 2. Create your feature branch: `git checkout -b feature-branch-name`.
@@ -86,4 +90,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Happy movie hunting with Moviepedia! 🍿**
-
