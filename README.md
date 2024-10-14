@@ -1,4 +1,4 @@
-### Moviepedia 🎥
+###Moviepedia 🎥
 
 Welcome to **Moviepedia**! A movie discovery app built with React and Tailwind CSS, powered by the OMDb API. With Moviepedia, you can search for your favorite movies or explore random selections to find something new and exciting.
 
