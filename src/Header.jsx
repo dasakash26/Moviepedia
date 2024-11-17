@@ -1,12 +1,12 @@
 import React from "react";
-import SearchBar from "./SearchBar";
 import Logo from "./Logo";
+import ProfileIcon from "./ProfileIcon";
 
-function Header({ movie, setLoading }) {
+function Header() {
   return (
-    <header className="sticky top-3 w-[90vw] md:w-[80vw] p-[0.5rem] bg-[#011d2c]/50 border-2 border-slate-500 backdrop-blur-lg rounded-lg shadow-md z-10 flex flex-col sm:flex-row items-center justify-between">
+    <header className="sticky top-4 w-[90vw] md:w-[80vw] mx-auto my-3 md:my-4 p-2 bg-[#011d2c]/70 border-2 border-blue-800 backdrop-blur-sm rounded-lg shadow-md flex flex-col sm:flex-row items-center z-50 justify-between">
       <Logo />
-      <SearchBar movie={movie} setLoading={setLoading} />
+      <ProfileIcon />
     </header>
   );
 }

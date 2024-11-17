@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
+import ErrorCard from "./ErrorCard";
 const apiURL = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -13,9 +14,7 @@ function Card({ movie, setMovie, setLoading }) {
   }, [movie.Title]);
 
   if (movie.Response === "False") {
-    return (
-      <div className="text-red-500 text-xl font-bold">Error: {movie.Error}</div>
-    );
+    return <ErrorCard errorMessage={movie.Error} movieTitle={movie.searchText} />;
   }
 
   const handleLikeToggle = () => {
@@ -48,11 +47,11 @@ function Card({ movie, setMovie, setLoading }) {
   };
 
   return (
-    <div className="relative flex flex-col md:flex-row bg-gray-800 bg-opacity-70 text-white rounded-lg shadow-lg overflow-hidden w-full md:w-[80vw] border-2 border-slate-500">
+    <div className="relative flex flex-col md:flex-row bg-gray-800 bg-opacity-60 text-white shadow-lg rounded-lg shadow-blue-800 overflow-hidden mb-4 md:mb-8 w-full md:w-[80vw] border-2 border-blue-800">
       <button
         onClick={handleLikeToggle}
         className={`absolute top-4 right-4 flex items-center px-4 py-2 ${
-          liked ? "bg-red-500" : "bg-slate-500"
+          liked ? "bg-red-500" : "bg-blue-800"
         } text-white rounded-full shadow-lg transition-all duration-300 ease-in-out hover:${
           liked ? "bg-red-700" : "bg-gray-700"
         } focus:outline-none`}
@@ -64,10 +63,10 @@ function Card({ movie, setMovie, setLoading }) {
       <img
         src={movie.Poster}
         alt={movie.Title}
-        className="w-full md:w-fit object-cover rounded-l-lg"
+        className="w-full md:w-1/3 object-cover rounded-lg md:rounded-r-none"
       />
 
-      <div className="ml-6 p-4 bg-transparent">
+      <div className="ml-6 p-4 bg-transparent flex-1">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-4xl font-bold">
             {movie.Title} ({movie.Year})

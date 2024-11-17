@@ -47,16 +47,15 @@ function SearchBar({ movie, setLoading }) {
 
       if (data.Response !== "True") {
         setError("Movie not found");
-        return;
       }
-
+      data.searchText = query;
       movie(data);
+      setSearchText("");
       saveToHistory(query);
     } catch (error) {
       setError("Something went wrong. Please try again.");
       console.error("API call failed:", error.message);
     } finally {
-      setSearchText("");
       setLoading(false);
     }
   };
@@ -93,13 +92,13 @@ function SearchBar({ movie, setLoading }) {
           onClick={handleExpand}
           onChange={handleChange}
           onKeyDown={handleKeys}
-          className={`p-2 rounded-l-lg border-none outline-none bg-slate-200 transition-all duration-200 ease-in-out focus:shadow-lg focus:border-2 focus:border-blue-500 ${
+          className={`p-3 rounded-l-lg text-black border-none outline-none bg-slate-200 transition-all duration-300 ease-in-out focus:shadow-lg focus:border-2 focus:border-blue-800 ${
             isExpanded ? "w-64 lg:w-96" : "w-24 lg:w-40"
           }`}
         />
         <button
           onClick={handleClick}
-          className="bg-slate-800 text-white p-2 rounded-r-lg relative overflow-hidden hover:bg-slate-700 focus:outline-none transition duration-300"
+          className="bg-blue-800 text-white p-3 rounded-r-lg relative overflow-hidden hover:bg-blue-600 focus:outline-none transition duration-300"
         >
           Search
           <span className="absolute inset-0 rounded-r-lg bg-white opacity-20 transition transform scale-0 hover:scale-100 duration-500"></span>

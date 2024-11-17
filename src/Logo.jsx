@@ -2,9 +2,9 @@ import React from "react";
 
 function Logo() {
   return (
-    <div className="logo text-white text-4xl font-semibold flex items-center">
+    <div className="logo text-white text-4xl font-bold flex items-center space-x-2 shadow-lg">
       <img
-        className="h-9 mx-1"
+        className="h-10 mx-2"
         src="https://uxwing.com/wp-content/themes/uxwing/download/video-photography-multimedia/film-movie-icon.png"
         alt="logo"
       />
