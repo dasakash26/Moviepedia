@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import { fetchFromOMDB } from "../services/api.js";
 import YearPicker from "./YearPicker";
 import { FaSearch } from "react-icons/fa";
-
-const apiURL = process.env.REACT_APP_API_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
 
 function SearchBar({ movie, setLoading }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -51,8 +48,8 @@ function SearchBar({ movie, setLoading }) {
       setLoading(true);
       setError("");
       const yearQuery = year ? `&y=${year}` : "";
-      const reqURL = `${apiURL}?apikey=${apiKey}&t=${query}${yearQuery}`;
-      const { data } = await axios.get(reqURL);
+      const searchParams = `?t=${query}${yearQuery}`;
+      const data = await fetchFromOMDB(searchParams);
 
       if (data.Response !== "True") {
         setError("Movie not found");

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import axios from "axios";
+import { fetchFromOMDB } from "../services/api.js";
 import MovieCard from "./MovieCard";
 import { movieNames } from "../utils/movieNames";
-
-const apiURL = process.env.REACT_APP_API_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
 
 function LiveMovies({ setMovie }) {
   const [movies, setMovies] = useState([]);
@@ -48,19 +45,13 @@ function LiveMovies({ setMovie }) {
 
       for (const name of selectedMovies) {
         await delay(250);
-        const res = await axios.get(
-          `${apiURL}?apikey=${apiKey}&t=${encodeURIComponent(name)}`
-        );
-        if (res.data.Response === "True") {
-          const rating = parseFloat(res.data.imdbRating);
-          const confidenceScore = calculateConfidenceScore(res.data);
+        const data = await fetchFromOMDB(`?t=${encodeURIComponent(name)}`);
+        if (data.Response === "True") {
+          const rating = parseFloat(data.imdbRating);
+          const confidenceScore = calculateConfidenceScore(data);
 
-          if (
-            rating >= 6.0 &&
-            confidenceScore >= 60 &&
-            res.data.Poster !== "N/A"
-          ) {
-            movieDetails.push({ ...res.data, confidenceScore });
+          if (rating >= 6.0 && confidenceScore >= 60 && data.Poster !== "N/A") {
+            movieDetails.push({ ...data, confidenceScore });
           }
         }
       }
@@ -87,11 +78,9 @@ function LiveMovies({ setMovie }) {
   const handleMovieClick = useCallback(
     async (imdbID) => {
       try {
-        const response = await axios.get(
-          `${apiURL}?apikey=${apiKey}&i=${imdbID}`
-        );
-        if (response.data.Response === "True") {
-          setMovie(response.data);
+        const data = await fetchFromOMDB(`?i=${imdbID}`);
+        if (data.Response === "True") {
+          setMovie(data);
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       } catch (error) {
