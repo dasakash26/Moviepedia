@@ -4,13 +4,11 @@ import YearPicker from "./YearPicker";
 import { FaSearch } from "react-icons/fa";
 
 function SearchBar({ movie, setLoading }) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState("");
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [year, setYear] = useState("");
-  const timeoutId = useRef(null);
   const [showHistory, setShowHistory] = useState(false);
   const searchRef = useRef(null);
 
