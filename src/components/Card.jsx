@@ -44,12 +44,10 @@ function Card({ movie, setMovie, setLoading, likedMovies, setLikedMovies }) {
       setLoading(true);
       if (isFullPlotFetched) return;
 
-      console.log("Fetching full plot...");
       const fullPlotURL = `${apiURL}?apikey=${apiKey}&t=${encodeURIComponent(
         movie.Title
       )}&plot=full`;
       const response = await axios.get(fullPlotURL);
-      console.log("Full plot fetched ...");
 
       setMovie((prevMovie) => ({
         ...prevMovie,
