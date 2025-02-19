@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { fetchFromOMDB } from "../services/api.js";
 import YearPicker from "./YearPicker";
 import { FaSearch } from "react-icons/fa";
+import { useToast } from "../hooks/useToast";
 
 function SearchBar({ movie, setLoading }) {
+  const toast = useToast();
   const [searchText, setSearchText] = useState("");
   const [error, setError] = useState("");
   const [history, setHistory] = useState([]);
@@ -50,14 +52,21 @@ function SearchBar({ movie, setLoading }) {
       const data = await fetchFromOMDB(searchParams);
 
       if (data.Response !== "True") {
-        setError("Movie not found");
+        const errorMessage = `Could not find "${query}"${
+          year ? ` from year ${year}` : ""
+        }`;
+        setError(errorMessage);
+        toast.error(errorMessage);
+      } else {
+        toast.success(`Found "${data.Title}" (${data.Year})`);
+        data.searchText = query;
+        movie(data);
+        setSearchText("");
+        saveToHistory(query);
       }
-      data.searchText = query;
-      movie(data);
-      setSearchText("");
-      saveToHistory(query);
     } catch (error) {
-      setError("Something went wrong. Please try again.");
+      const errorMessage = "Something went wrong. Please try again.";
+      setError(errorMessage);
       console.error("API call failed:", error.message);
     } finally {
       setLoading(false);
@@ -91,7 +100,7 @@ function SearchBar({ movie, setLoading }) {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="container mx-auto px-4 py-8">
         <div
           ref={searchRef}

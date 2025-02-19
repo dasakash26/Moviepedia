@@ -17,13 +17,6 @@ const MovieCard = memo(({ movie, onClick }) => (
       {/* Simplified gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90" />
 
-      {/* Movie Title with better positioning */}
-      <div className="absolute top-4 left-4 right-4 z-10">
-        <h3 className="text-amber-50/95 font-bold text-lg leading-snug line-clamp-2 drop-shadow-sm">
-          {movie.Title}
-        </h3>
-      </div>
-
       {/* Rating badge with subtle design */}
       <div className="absolute top-4 right-4 z-10">
         <span className="bg-yellow-500/85 text-black font-bold px-2.5 py-1 rounded text-sm flex items-center gap-1">
@@ -34,6 +27,9 @@ const MovieCard = memo(({ movie, onClick }) => (
       {/* Info overlay with smoother transition */}
       <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
         <div className="space-y-3">
+          <h3 className="text-amber-50/95 font-bold text-lg leading-snug line-clamp-2 drop-shadow-sm block">
+            {movie.Title}
+          </h3>
           <div className="flex flex-wrap gap-2">
             <span className="bg-blue-600/90 text-white px-2.5 py-0.5 rounded text-sm">
               {movie.Year}
