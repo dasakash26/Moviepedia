@@ -103,7 +103,7 @@ function LiveMovies({ setMovie }) {
     fetchMovies,
     loadMoreRef,
     !loading && initialLoadComplete,
-    800
+    300
   );
 
   useEffect(() => {
