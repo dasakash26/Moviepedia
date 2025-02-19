@@ -1,6 +1,6 @@
 ### Moviepedia 🎥
 
-Welcome to **Moviepedia**! A movie discovery app built with React and Tailwind CSS, powered by the OMDb API. With Moviepedia, you can search for your favorite movies or explore random selections to find something new and exciting.
+Welcome to **Moviepedia**! A movie discovery app built with React and Tailwind CSS, powered by the OMDb API. With Moviepedia, you can search for your favorite movies or explore random selections to find new favorites. Whether you're a movie enthusiast or just looking for something new to watch, Moviepedia has something for everyone.
 
 ## Features
 
@@ -49,6 +49,11 @@ REACT_APP_API_KEY=your_api_key_here
 ```bash
 npm start
 ```
+
+### Troubleshooting
+
+- If you encounter any issues during installation, ensure all dependencies are properly installed and the API key is correctly set up in the `.env` file.
+- For additional help, refer to the [Node.js](https://nodejs.org/en/docs/) and [React](https://reactjs.org/docs/getting-started.html) documentation.
 
 ## Usage
 
