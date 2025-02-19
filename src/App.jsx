@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAlertStore } from "./stores/alertStore";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import { AlertToastContainer } from "./components/AlertToast";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./App.css";
 import Footer from "./components/Footer";
 import Card from "./components/Card";
@@ -13,60 +15,32 @@ import LiveMovies from "./components/LiveMovies";
 function App() {
   const [movie, setMovie] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [likedMovies, setLikedMovies] = useState([]);
+  const [likedMovies, setLikedMovies] = useLocalStorage("likedMovies", []);
   const { alerts, removeAlert } = useAlertStore();
 
   useEffect(() => {
-    const loadLikedMovies = () => {
-      try {
-        const saved = localStorage.getItem("likedMovies");
-        if (!saved) {
-          return [];
-        }
-        return JSON.parse(saved);
-      } catch (error) {
-        console.error("Error loading liked movies:", error);
-        localStorage.removeItem("likedMovies");
-        return [];
-      }
-    };
-    setLikedMovies(loadLikedMovies());
-  }, []);
-
-  useEffect(() => {
-    const saveLikedMovies = () => {
-      try {
-        const uniqueLikedMovies = likedMovies.filter(
-          (movie, index, self) =>
-            index === self.findIndex((m) => m.imdbID === movie.imdbID)
-        );
-
-        if (uniqueLikedMovies.length !== likedMovies.length) {
-          setLikedMovies(uniqueLikedMovies);
-          return;
-        }
-
-        localStorage.setItem("likedMovies", JSON.stringify(uniqueLikedMovies));
-      } catch (error) {
-        console.error("Error saving liked movies:", error);
-      }
-    };
-
     if (likedMovies.length > 0) {
-      saveLikedMovies();
+      const uniqueLikedMovies = likedMovies.filter(
+        (movie, index, self) =>
+          index === self.findIndex((m) => m.imdbID === movie.imdbID)
+      );
+
+      if (uniqueLikedMovies.length !== likedMovies.length) {
+        setLikedMovies(uniqueLikedMovies);
+      }
     }
-  }, [likedMovies]);
+  }, [likedMovies, setLikedMovies]);
 
   useEffect(() => {
-    // Prevent initial scroll
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <ErrorBoundary>
+      <div className="grid-background fixed inset-0 z-[-1]"></div>
       {isLoading && <Loading />}
-      <main className="flex flex-col justify-center items-center w-[90vw] md:w-[80vw] m-auto min-h-screen">
+      <main className="flex flex-col justify-center items-center w-[90vw] md:w-[80vw] m-auto min-h-screen relative">
         <Header />
         {movie ? (
           <div className="w-full animate-fadeIn">
@@ -86,7 +60,7 @@ function App() {
         <Footer />
       </main>
       <AlertToastContainer alerts={alerts} removeAlert={removeAlert} />
-    </>
+    </ErrorBoundary>
   );
 }
 

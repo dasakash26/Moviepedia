@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { fetchFromOMDB } from "../services/api.js";
 import YearPicker from "./YearPicker";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimes } from "react-icons/fa"; // Added FaTimes
 import { useToast } from "../hooks/useToast";
 
 function SearchBar({ movie, setLoading }) {
@@ -76,6 +76,11 @@ function SearchBar({ movie, setLoading }) {
   const handleKeys = ({ key }) => {
     if (key === "Enter") {
       handleClick();
+    } else if (key === "Escape") {
+      // Added Escape key support
+      setSearchText("");
+      setShowHistory(false);
+      setHistoryIndex(-1);
     } else if (key === "ArrowUp") {
       const newIndex =
         historyIndex === -1
@@ -113,17 +118,25 @@ function SearchBar({ movie, setLoading }) {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
               <input
                 type="text"
+                aria-label="Search movies"
                 placeholder="Search movies..."
                 value={searchText}
                 onClick={() => setShowHistory(true)}
                 onChange={handleChange}
                 onKeyDown={handleKeys}
-                className="relative w-full h-12 px-4 pl-10 rounded-lg text-blue-100 
+                className="relative w-full h-12 px-4 pl-10 pr-10 rounded-lg text-blue-100 
                          bg-slate-900/90 backdrop-blur-sm border border-blue-500/30
                          group-hover:border-blue-400/50 focus:outline-none focus:border-blue-400 
                          focus:ring-2 focus:ring-blue-400/50 transition duration-300"
               />
               <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
+              {searchText && ( // Added clear icon
+                <FaTimes
+                  onClick={() => setSearchText("")}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 cursor-pointer transition-colors duration-300"
+                  aria-label="Clear search input"
+                />
+              )}
               {showHistory && history.length > 0 && (
                 <div
                   className="absolute z-10 w-full mt-2 bg-slate-900/95 backdrop-blur-sm
